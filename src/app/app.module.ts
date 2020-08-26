@@ -5,7 +5,6 @@ import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/co
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PrimecustomModuleModule } from './primecustom-module/primecustom-module.module';
-import {AngularMaterialModule } from './angular-material/angular-material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 
@@ -19,7 +18,6 @@ import { HeaderComponent } from './Shared/header/header.component';
 import {FormsModule} from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductOperationsDataService } from './product-operations-data.service';
-import { ConfirmationService } from 'primeng/api';
 
 
 
@@ -38,13 +36,12 @@ import { ConfirmationService } from 'primeng/api';
     AppRoutingModule,
     PrimecustomModuleModule,
     BrowserAnimationsModule,
-    AngularMaterialModule,
     NgxImageZoomModule,
     FormsModule,
     ReactiveFormsModule ,
   ],
 
-  providers: [ProductOperationsDataService, ConfirmationService ],
+  providers: [ProductOperationsDataService ],
   bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,

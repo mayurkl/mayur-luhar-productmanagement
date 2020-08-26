@@ -4,7 +4,7 @@
             <div class="p-col-2">
                 <div class="card product-filters">
                     <div style="text-align: center;">
-                        <h1> <b><u>Filter Records</u></b>
+                        <h1> <b><u>Filter Products</u></b>
                         </h1>
 
                     </div>
@@ -35,6 +35,9 @@
                                 <label>Out of Stock</label>
                             </td>
                         </div>
+                        <div style="text-align: right;padding: 1em;">
+                            <button pButton pRipple type="button" label="Reset" class="p-button-raised p-button-text p-button-plain" style="width: 5em;" pTooltip="Reset Filters" tooltipPosition="top" (click)="ResetFilters()"></button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -54,7 +57,7 @@
 
                     <ng-template let-product let-rowIndexValue="rowIndex" pTemplate="gridItem">
                         <div class="p-col-12 p-md-4">
-                            <div class="product-grid-item card padding-1">
+                            <div class="product-grid-item card padding-1" (click)="viewProductDetails(product.productId)">
                                 <div class="product-grid-item-top">
                                     <div>
                                         <i class="pi pi-tag product-category-icon"></i> <span class="showbold">Title :
@@ -69,7 +72,7 @@
                                     </span>
                                 </div>
                                 <div class="product-grid-item-content">
-                                    <img [src]="product.imageurl" [alt]="product.name" [routerLink]="['/productDetails',product.productId]" title="Click Image to view the details" style="max-height:15em" />
+                                    <img [src]="product.imageurl" [alt]="product.name" title="Click Image to view the details" style="max-height:15em" />
                                     <div class="showbold">Description</div>
                                     <div class="product-description ">{{limitLength(product.productDesc)}}</div>
                                     <p-rating [ngModel]="product.rating" readonly="true" [cancel]="false">

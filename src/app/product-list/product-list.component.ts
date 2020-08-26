@@ -29,6 +29,7 @@ export class ProductListComponent implements OnInit {
   ProductFilter: any;
   productList: Product[];
   selectedLocations: string[];
+  filterProductstemp: Product[];
 
   availablelocations: any = [
     {
@@ -97,34 +98,40 @@ export class ProductListComponent implements OnInit {
         );
     }
   }
+
+  //filter the product list based on the selected filters
   fiterProductData(): void {
-    this.fetchProductList('ProductDetails');
     setTimeout(() => {
+      this.fetchProductList('ProductDetails');
+      this.filterProductstemp =  this.productList;
+
       if (this.ProductFilter.value.rating) {
-        this.productList = this.productList.filter(
+        this.filterProductstemp = this.filterProductstemp.filter(
           (item) => this.ProductFilter.value.rating === item.rating
         );
       }
+
       if (String(this.ProductFilter.value.filterInventory) !== '') {
         console.log(this.ProductFilter.value.filterInventory);
-        this.productList = this.productList.filter(
+        this.filterProductstemp = this.filterProductstemp.filter(
           (item) =>
             this.ProductFilter.value.filterInventory === item.inventoryStatus
         );
       }
-
       // getting all the location names
       this.getSelectedHobbies();
       // matching the location names
       if (this.selectedLocations != null && this.selectedLocations.length > 0) {
-        this.productList = this.productList.filter((item) =>
+        this.filterProductstemp = this.filterProductstemp.filter((item) =>
           this.selectedLocations.some(
             (val) => item.prodAvailoc.indexOf(val) !== -1
 
           )
         );
       }
-    }, 1000);
+
+      this.productList = this.filterProductstemp;
+    }, 200);
   }
   toggleLike(productData: Product): void {
     productData.IsLiked = productData.IsLiked ? false : true;
@@ -155,10 +162,7 @@ export class ProductListComponent implements OnInit {
   limitLength(length: string): string {
     return length.slice(0, 100) + '....';
   }
-  // go to the add product screen
-  goToAddProduct(): void {
-    this.router.navigate(['/ProductAddEdit', -1]);
-  }
+  
   // getting the values of the available locations
   getSelectedHobbies(): void {
     this.selectedLocations = _.map(
@@ -174,5 +178,23 @@ export class ProductListComponent implements OnInit {
         return location;
       }
     });
+  }
+
+   // reset the form
+   ResetFilters(): void {
+      this.ProductFilter.reset();
+      this.InitializeFormInputs();
+      this.fetchProductList('ProductDetails');
+    }
+  
+  // go to the add product screen
+  goToAddProduct(): void {
+    this.router.navigate(['/ProductAddEdit', -1]);
+  }
+
+  //go to product details screen
+  viewProductDetails(prdId:number): void{
+    this.router.navigate(['/productDetails',prdId]);
+
   }
 }
