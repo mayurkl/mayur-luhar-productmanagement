@@ -1,0 +1,5 @@
+<div style="padding-left:2em;">
+    <app-header [appheadervisiblesidebar]="visibleSidebar" (SideBar)="hideSideBar($event)"></app-header>
+</div>
+<app-sidenav [visibleSidebar]="visibleSidebar" (outVisibleSideBar)="hideSideBar($event)"></app-sidenav>
+<router-outlet></router-outlet>

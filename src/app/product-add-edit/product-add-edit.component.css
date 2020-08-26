@@ -1,0 +1,15 @@
+.divGrid {
+    width: 100%;
+    text-align: center;
+}
+
+.divForm {
+    display: inline-block;
+    margin: 0 auto;
+    padding: 3px;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0 1em;
+}

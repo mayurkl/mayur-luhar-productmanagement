@@ -1,0 +1,11 @@
+<p-sidebar [(visible)]="visibleSidebar" [dismissible]="false" [style]="{width:'8em'}" [modal]="true" [showCloseIcon]="true" [closeOnEscape]="false" (onHide)="sidenavClosed()">
+    <div>
+        <li class="li-none">
+            <button pButton pRipple type="button " icon="pi pi-home" styleClass="p-button-success " (click)="goToHome() " pTooltip="Home" tooltipPosition="right"></button>
+        </li>
+
+        <li class="li-none">
+            <button pButton pRipple type="button " icon="pi pi-trash" styleClass="p-button-success " (click)="goToTrash() " pTooltip="Trash" tooltipPosition="right"></button>
+        </li>
+    </div>
+</p-sidebar>

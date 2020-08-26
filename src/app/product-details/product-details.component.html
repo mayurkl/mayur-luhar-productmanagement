@@ -1,0 +1,52 @@
+<div class="p-grid">
+    <div class="col-md-12">
+        <div class="p-col-12" style="padding-left:2em;">
+            <a [routerLink]="['/productList']" pTooltip="Back" tooltipPosition="right"><i class="pi pi-chevron-left"></i></a>
+        </div>
+        <div class="p-grid pad-top-8">
+            <div class="p-col-2">
+                <lib-ngx-image-zoom [thumbImage]=productInfo.imageurl [fullImage]=productInfo.imageurl [magnification]="2" [enableScrollZoom]="false" [enableLens]="false" [lensWidth]="300" class="img-size">
+                </lib-ngx-image-zoom>
+            </div>
+            <div class="p-col">
+                <p-panel header={{productInfo.productTitle}} [toggleable]="true">
+                    <table>
+
+                        <tr>
+                            <td class="showBold">Category:</td>
+                            <td>{{productInfo.productCategory}}</td>
+                        </tr>
+                        <tr>
+                            <td class="showBold">Availability:</td>
+                            <td>{{AvailablilityValue(productInfo.inventoryStatus)}}</td>
+                        </tr>
+                        <tr>
+                            <td class="showBold">Price:</td>
+                            <td>{{productInfo.PriceRange | currency}}</td>
+                        </tr>
+                        <tr>
+                            <td class="showBold">
+                                Rating:
+                            </td>
+                            <td>
+                                <p-rating [ngModel]="productInfo.rating" readonly="true" [cancel]="false">
+                                </p-rating>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="v-top showBold">Description:</td>
+                            <td>{{productInfo.productDesc}}</td>
+                        </tr>
+
+
+                    </table>
+                    <p-footer style="text-align: right;max-width: 30em;">
+                        <button pButton pRipple type="button" icon="pi pi-user-edit" class="p-button-text p-button-plain" pTooltip="Edit" (click)="gotoEditProduct(productInfo.productId)"></button>
+                    </p-footer>
+                </p-panel>
+
+            </div>
+        </div>
+
+    </div>
+</div>

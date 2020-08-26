@@ -1,0 +1,99 @@
+<div class="p-fluid">
+    <div class="p-col-12">
+        <div class="p-grid">
+            <div class="p-col-2">
+                <div class="card product-filters">
+                    <div style="text-align: center;">
+                        <h1> <b><u>Filter Records</u></b>
+                        </h1>
+
+                    </div>
+                    <form [formGroup]="ProductFilter">
+                        <div>
+                            <label class="showbold">Ratings:</label>
+                            <div style="display:inline-block;padding-left:1em;vertical-align: middle;">
+                                <p-rating formControlName="rating" formControlName="rating" (click)="fiterProductData()"></p-rating>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="showbold">location:</label>
+                        </div>
+                        <div *ngFor="let loc of ProductFilter.get('filterlocations')['controls']; let i=index;" formArrayName="filterlocations" style="text-align: center;">
+                            <input type="checkbox" [formControlName]="i" (click)="fiterProductData()"> {{availablelocations[i].name}}
+                        </div>
+                        <div>
+                            <label class="showbold">Availability:</label>
+                        </div>
+                        <div>
+                            <td> <input type="radio" [value]="true" name="filterInventory" formControlName="filterInventory" (click)="fiterProductData()">
+                                <label> In Stock</label>
+
+                            </td>
+
+                            <td>
+                                <input type="radio" [value]="false" name="filterInventory" formControlName="filterInventory" (click)="fiterProductData()">
+                                <label>Out of Stock</label>
+                            </td>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="p-col card ">
+                <p-dataView #dvproductlist [value]="productList" [paginator]="true" [rows]="3" layout="grid" filterBy="productTitle,productDesc,PriceRange" emptyMessage="There are no Products to show" [alwaysShowPaginator]="false">
+                    <ng-template pTemplate="header">
+                        <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+                            <div></div>
+                            <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+                                <i class="pi pi-search"></i>
+                                <input type="search" pInputText placeholder="Search"
+                                    (input)="dvproductlist.filter($event.target.value)" class="p-inputtext p-component"
+                                    style="width:20em !important">
+                            </span>
+                        </div>
+                    </ng-template>
+
+                    <ng-template let-product let-rowIndexValue="rowIndex" pTemplate="gridItem">
+                        <div class="p-col-12 p-md-4">
+                            <div class="product-grid-item card padding-1">
+                                <div class="product-grid-item-top">
+                                    <div>
+                                        <i class="pi pi-tag product-category-icon"></i> <span class="showbold">Title :
+                                        </span>
+                                        <span class="product-Title">{{product.productTitle}}</span> </div>
+                                    <span class="{{showInStockNot(product.inventoryStatus)}}">{{AvailablilityValue(product.inventoryStatus)}}</span>
+
+                                </div>
+                                <div>
+                                    <span class="productpriceFont">
+                                        {{product.PriceRange |  currency}}
+                                    </span>
+                                </div>
+                                <div class="product-grid-item-content">
+                                    <img [src]="product.imageurl" [alt]="product.name" [routerLink]="['/productDetails',product.productId]" title="Click Image to view the details" style="max-height:15em" />
+                                    <div class="showbold">Description</div>
+                                    <div class="product-description ">{{limitLength(product.productDesc)}}</div>
+                                    <p-rating [ngModel]="product.rating" readonly="true" [cancel]="false">
+                                    </p-rating>
+                                </div>
+                                <div class="product-grid-item-bottom">
+                                    <p-button icon="{{changelikeIcon(product.IsLiked)}}" (click)="toggleLike(product)">
+                                    </p-button>
+                                    <p-button icon="pi pi-trash" (click)="MoveToTrash(product)"></p-button>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-dataView>
+            </div>
+        </div>
+        <footer>
+            <div>
+                <button pButton pRipple type="button" icon="pi pi-plus-circle" class="p-button-rounded p-button-success floatbtn" pTooltip="Add Product" tooltipPosition="top" (click)="goToAddProduct()"></button>
+            </div>
+        </footer>
+
+    </div>
+
+
+
+</div>

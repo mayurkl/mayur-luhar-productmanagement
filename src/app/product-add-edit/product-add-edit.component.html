@@ -1,0 +1,136 @@
+<div class="container-fluid">
+    <div class="p-col-12 divGrid">
+        <div class="p-col-12" style="padding-left:2em;text-align: left;">
+            <a [routerLink]="['/productList']" pTooltip="Back" tooltipPosition="right"><i class="pi pi-chevron-left"></i></a>
+        </div>
+        <div class="divForm">
+            <p-fieldset legend="{{ProductOperationTitle}}">
+                <form [formGroup]="ProductDetailsForm" (ngSubmit)="SaveUpdateProduct()">
+                    <table>
+                        <tr>
+                            <td>
+                                Product Title:
+                            </td>
+                            <td>
+                                <input formControlName="productTitle" placeholder="Enter Product Title" class="form-control" required>
+                                <div *ngIf="productDetailFormControl.productTitle.invalid && (productDetailFormControl.productTitle.dirty || productDetailFormControl.productTitle.touched)" class="alert alert-danger">
+
+                                    <ng-container *ngIf="productDetailFormControl.productTitle.errors.required">
+                                        Product Title is required.
+                                    </ng-container>
+                                    <ng-container *ngIf="productDetailFormControl.productTitle.errors.maxlength">
+                                        Product Title should have only 50 characters.
+                                    </ng-container>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Product Category:
+                            </td>
+                            <td>
+                                <select formControlName="productCategory" class="form-control" required>
+                                    <option value="" disabled selected>Select Category</option>
+                                    <option value="clothing">Clothing</option>
+                                    <option value="fitness">Fitness</option>
+                                    <option value="accessories">Accessories</option>
+                                </select>
+                                <div *ngIf="productDetailFormControl.productCategory.invalid && (productDetailFormControl.productCategory.dirty || productDetailFormControl.productCategory.touched)" class="alert alert-danger">
+                                    <ng-container *ngIf="productDetailFormControl.productCategory.errors.required">
+                                        Product Category is required.
+                                    </ng-container>
+                                </div>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left;">
+                                Product Description:
+                            </td>
+                            <td>
+                                <textarea type="textarea" formControlName="productDesc" placeholder="Enter Product Description" class="form-control" rows=4 required></textarea>
+                                <div *ngIf="productDetailFormControl.productDesc.invalid && (productDetailFormControl.productDesc.dirty || productDetailFormControl.productDesc.touched)" class="alert alert-danger">
+                                    <ng-container *ngIf="productDetailFormControl.productDesc.errors.required">
+                                        Product Description is required.
+                                    </ng-container>
+                                    <ng-container *ngIf="productDetailFormControl.productDesc.errors.minlength">
+                                        Product Description should be 150 characters.
+                                    </ng-container>
+                                </div>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                PriceRange:
+                            </td>
+                            <td>
+                                <input type="number" formControlName="PriceRange" placeholder="Enter PriceRange" class="form-control" min="0" required>
+                                <div *ngIf="productDetailFormControl.PriceRange.invalid && (productDetailFormControl.PriceRange.dirty || productDetailFormControl.PriceRange.touched)" class="alert alert-danger">
+                                    <ng-container *ngIf="productDetailFormControl.PriceRange.errors.required">
+                                        Product Price is required.
+                                    </ng-container>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                imageUrl:
+                            </td>
+                            <td>
+                                <input formControlName="imageurl" placeholder="Enter Image Url" class="form-control" required>
+                                <div *ngIf="ProductDetailsForm.get( 'imageurl').invalid && ProductDetailsForm.get( 'imageurl').touched" class="alert alert-danger">
+                                    <ng-container *ngIf="ProductDetailsForm.get('imageurl').errors.required">
+                                        Image Url is required.
+                                    </ng-container>
+                                    <ng-container *ngIf="ProductDetailsForm.get('imageurl').errors.pattern">
+                                        Image Url is Invalid.
+                                    </ng-container>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Rating:
+                            </td>
+                            <td>
+                                <p-rating formControlName="rating"></p-rating>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;">
+                                Locations:
+                            </td>
+                            <td>
+                                <div *ngFor="let loc of ProductDetailsForm.get('prodAvailoc')['controls']; let i=index;" formArrayName="prodAvailoc" required>
+                                    <input type="checkbox" [formControlName]="i"> {{availablelocations[i].name}}
+                                </div>
+                                <ng-container *ngIf="ProductDetailsForm.controls['prodAvailoc'].errors?.required && ProductDetailsForm.controls['prodAvailoc'].errors?.touched">
+                                    Atleast one location is required.
+                                </ng-container>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Availability:
+                            </td>
+                            <td>
+                                <input type="radio" [value]="true" name="inventoryStatus" formControlName="inventoryStatus">
+                                <label>In Stock</label>
+                            </td>
+                            <td>
+                                <input type="radio" [value]="false" name="inventoryStatus" formControlName="inventoryStatus">
+                                <label>Out of Stock</label>
+                            </td>
+                        </tr>
+                    </table>
+                    <button pButton pRipple type="submit" label={{btnProductText}} class="p-button-rounded p-button-success" [disabled]="!ProductDetailsForm.valid"></button>&nbsp;
+                    <button pButton pRipple type="button" label="Clear All" class="p-button-rounded p-button-secondary" (click)="ClearAll()"></button>
+
+                </form>
+            </p-fieldset>
+        </div>
+    </div>
+</div>

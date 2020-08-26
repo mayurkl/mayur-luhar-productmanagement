@@ -1,0 +1,31 @@
+.pad-top-8 {
+    padding-top: 4em;
+    padding-left: 2em;
+}
+
+::ng-deep .ngxImageZoomContainer>img {
+    max-height: 400px!important;
+    /* width: 100%; */
+    border-radius: 1em;
+}
+
+.v-top {
+    vertical-align: top;
+}
+
+.showBold {
+    font-size: 1 rem;
+    font-weight: 700;
+}
+
+
+/* 
+img {
+    width: 200px;
+    height: 400px;
+    object-fit: cover;
+}
+
+img:hover {
+    transform: scale(1.5);
+} */
